@@ -8,6 +8,7 @@ namespace Models
 {
     public class MemberProvider : IProvider<Member>
     {
+        private CargoDBEntities CargoDB=new CargoDBEntities();
         public int Delete(Member t)
         {
             throw new NotImplementedException();
@@ -20,7 +21,7 @@ namespace Models
 
         public List<Member> Select()
         {
-            throw new NotImplementedException();
+            return CargoDB.Member.ToList();
         }
 
         public int Update(Member t)

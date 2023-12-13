@@ -43,6 +43,7 @@ namespace CMS.ViewModel
             ////}
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<LoginViewModel>();
         }
 
         public MainViewModel Main
@@ -52,7 +53,13 @@ namespace CMS.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
-        
+        public LoginViewModel Login
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
