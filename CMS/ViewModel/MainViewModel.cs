@@ -16,6 +16,7 @@ namespace CMS.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        public AppData AppData { get; set; } = AppData.Instance;
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>

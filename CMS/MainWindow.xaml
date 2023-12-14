@@ -6,9 +6,39 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:CMS"
         mc:Ignorable="d"
+        DataContext="{Binding Source={StaticResource Locator},Path=Main}"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        WindowState="Maximized"
+        Background="#F6F6F6"
+        Title="" Height="450" Width="800">
     <Grid>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border Background="#F6F6F6">
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="0.5"/>
+            </Border.Effect>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Margin="5" Text="&#xf0c9;" FontFamily="Fonts/#FontAwesome" FontSize="40"/>
+                    <TextBlock Margin="5" Text="{Binding AppData.SystemTitle}" FontSize="23" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" HorizontalAlignment="Left">
+                    <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
+                     Tag="&#xf015;" Content="首页"></RadioButton>
+                    <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
+                     Tag="&#xf015;" Content="首页"></RadioButton>
+                    <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
+                     Tag="&#xf015;" Content="首页"></RadioButton>
+                </StackPanel>
+            </Grid>
+        </Border>
+       
     </Grid>
 </mah:MetroWindow>
