@@ -139,7 +139,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Fonts\FontAwesome.otf" />
-    <None Include="Fonts\矢量版本 - FontAwesome 字体图标中文Icon.pdf" />
+    <None Include="Fonts\矢量版 – Font Awesome 中文网.pdf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

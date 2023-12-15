@@ -1,26 +1,42 @@
-﻿<mah:MetroWindow  x:Class="CMS.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:local="clr-namespace:CMS"
-        mc:Ignorable="d"
-        DataContext="{Binding Source={StaticResource Locator},Path=Main}"
-        WindowStartupLocation="CenterScreen"
-        WindowState="Maximized"
-        Background="#F6F6F6"
-        Title="" Height="450" Width="800">
+﻿<mah:MetroWindow x:Class="CMS.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:local="clr-namespace:CMS"
+    mc:Ignorable="d"
+    DataContext="{Binding Source={StaticResource Locator},Path=Main}"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    Background="#F6F6F6"
+    Title="" Height="450" Width="800">
+    <mah:MetroWindow.Resources>
+        <Storyboard x:Key="ToggleButtonChecked">
+            <DoubleAnimation Duration="00:00:0.5" From="200" To="40" Storyboard.TargetName="leftBorder" Storyboard.TargetProperty="Width">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="ToggleButtonUnChecked">
+            <DoubleAnimation Duration="00:00:0.5" From="0" To="200" Storyboard.TargetName="leftBorder" Storyboard.TargetProperty="Width">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+    </mah:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Border Background="#F6F6F6">
+        <Border x:Name="leftBorder" Grid.Column="0" Background="#F6F6F6" HorizontalAlignment="Left">
             <Border.Effect>
-                <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="0.5"/>
+                <DropShadowEffect ShadowDepth="0" Color="Black" Opacity="0.8"/>
             </Border.Effect>
-            <Grid Grid.Column="0">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
                     <RowDefinition/>
@@ -31,14 +47,27 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-                     Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf015;" Content="首页"></RadioButton>
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-                     Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf015;" Content="首页"></RadioButton>
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-                     Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf015;" Content="首页"></RadioButton>
                 </StackPanel>
             </Grid>
         </Border>
-       
+
+        <Grid Grid.Column="1">
+            <ToggleButton Grid.Column="1" Style="{DynamicResource ToggleButtonStyle}" Margin="5" FontSize="30" HorizontalAlignment="Left">
+                <ToggleButton.Triggers>
+                    <EventTrigger RoutedEvent="ToggleButton.Checked">
+                        <BeginStoryboard Storyboard="{StaticResource ToggleButtonChecked}"/>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                        <BeginStoryboard Storyboard="{StaticResource ToggleButtonUnChecked}"/>
+                    </EventTrigger>
+                </ToggleButton.Triggers>
+            </ToggleButton>
+        </Grid>
+
     </Grid>
 </mah:MetroWindow>
