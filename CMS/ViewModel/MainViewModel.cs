@@ -1,4 +1,7 @@
+using CMS.Views;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using System.Windows.Controls;
 
 namespace CMS.ViewModel
 {
@@ -30,6 +33,39 @@ namespace CMS.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        public RelayCommand<RadioButton> SelectViewCommand
+        {
+            get
+            {
+                return new RelayCommand<RadioButton>((args) =>
+                {
+                    if (args is RadioButton radioButton)
+                    {
+                        switch (radioButton.Content)
+                        {
+                            case "首页":
+                                AppData.Instance.MainWindow.container.Content = new IndexView();
+                                break;
+                            case "出入库":
+                                AppData.Instance.MainWindow.container.Content = new RecordView();
+                                break;
+                            case "物资管理":
+                                AppData.Instance.MainWindow.container.Content = new CargoView();
+                                break;
+                            case "用户管理":
+                                AppData.Instance.MainWindow.container.Content = new MemberView();
+                                break;
+                            case "类型设置":
+                                AppData.Instance.MainWindow.container.Content = new CargoTypeView();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+            }
         }
     }
 }

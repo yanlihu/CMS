@@ -44,6 +44,11 @@ namespace CMS.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<IndexViewModel>();
+            SimpleIoc.Default.Register<CargoViewModel>();
+            SimpleIoc.Default.Register<CargoTypeViewModel>();
+            SimpleIoc.Default.Register<RecordViewModel>();
+            SimpleIoc.Default.Register<MemberViewModel>();
         }
 
         public MainViewModel Main
@@ -58,6 +63,41 @@ namespace CMS.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<LoginViewModel>();
+            }
+        }
+        public IndexViewModel Index
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IndexViewModel>();
+            }
+        }
+        public CargoViewModel Cargo
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CargoViewModel>();
+            }
+        }
+        public CargoTypeViewModel CargoType
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CargoTypeViewModel>();
+            }
+        }
+        public RecordViewModel Record
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<RecordViewModel>();
+            }
+        }
+        public MemberViewModel Member
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<MemberViewModel>();
             }
         }
         public static void Cleanup()

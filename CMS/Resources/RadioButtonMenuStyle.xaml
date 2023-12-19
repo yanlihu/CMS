@@ -56,10 +56,8 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Background="{TemplateBinding Background}" VerticalAlignment="Center">
-                        <TextBlock x:Name="textblock" Text="{TemplateBinding Content}"
+                    <TextBlock x:Name="textblock" Text="{TemplateBinding Content}"
                                    Foreground="{TemplateBinding Foreground}"/>
-                    </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
                             <Setter TargetName="textblock" Property="TextBlock.Text" Value="&#xf061;"/>

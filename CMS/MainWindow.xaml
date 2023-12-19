@@ -4,7 +4,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:local="clr-namespace:CMS"
+    xmlns:local="clr-namespace:CMS" 
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator},Path=Main}"
     WindowStartupLocation="CenterScreen"
@@ -29,7 +30,7 @@
     </mah:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Border x:Name="leftBorder" Grid.Column="0" Background="#F6F6F6" HorizontalAlignment="Left">
@@ -47,17 +48,56 @@
                 </StackPanel>
                 <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-           Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf015;" Content="首页">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=RadioButton,Mode=FindAncestor}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-           Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf1c0;" Content="出入库">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=RadioButton,Mode=FindAncestor}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
                     <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
-           Tag="&#xf015;" Content="首页"></RadioButton>
+           Tag="&#xf015;" Content="物资管理">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=RadioButton,Mode=FindAncestor}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
+           Tag="&#xf007;" Content="用户管理">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=RadioButton,Mode=FindAncestor}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
+                    <RadioButton Width="200" Height="50" Style="{DynamicResource RadioButtonMenuStyle}" Background="#F6F6F6" FontSize="20" 
+           Tag="&#xf013;" Content="类型设置">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding SelectViewCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=RadioButton,Mode=FindAncestor}}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </RadioButton>
                 </StackPanel>
             </Grid>
         </Border>
 
         <Grid Grid.Column="1">
-            <ToggleButton Grid.Column="1" Style="{DynamicResource ToggleButtonStyle}" Margin="5" FontSize="30" HorizontalAlignment="Left">
+            <ToggleButton Panel.ZIndex="1" Grid.Column="1" Style="{DynamicResource ToggleButtonStyle}" Margin="5 10" FontSize="30" HorizontalAlignment="Left">
                 <ToggleButton.Triggers>
                     <EventTrigger RoutedEvent="ToggleButton.Checked">
                         <BeginStoryboard Storyboard="{StaticResource ToggleButtonChecked}"/>
@@ -67,6 +107,7 @@
                     </EventTrigger>
                 </ToggleButton.Triggers>
             </ToggleButton>
+            <ContentControl x:Name="container"/>
         </Grid>
 
     </Grid>

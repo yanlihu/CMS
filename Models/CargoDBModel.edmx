@@ -27,15 +27,9 @@
           <Property Name="InsertDate" Type="datetime" Nullable="false" />
           <Property Name="MemberId" Type="int" Nullable="false" />
         </EntityType>
-        <!--生成过程中发现错误:
-警告 6002: 表/视图“CargoDB.dbo.CargoType”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
         <EntityType Name="CargoType">
           <Key>
-            <PropertyRef Name="Id" />
             <PropertyRef Name="Name" />
-            <PropertyRef Name="InsertDate" />
-            <PropertyRef Name="MemberId" />
-            <PropertyRef Name="MemberName" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -75,6 +69,7 @@
           <Property Name="MemberName" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityContainer Name="CargoDBModelStoreContainer">
+          <EntitySet Name="CargoType" EntityType="Self.CargoType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cargo" EntityType="Self.Cargo" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -88,16 +83,6 @@
     [Cargo].[InsertDate] AS [InsertDate], 
     [Cargo].[MemberId] AS [MemberId]
     FROM [dbo].[Cargo] AS [Cargo]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="CargoType" EntityType="Self.CargoType" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [CargoType].[Id] AS [Id], 
-    [CargoType].[Name] AS [Name], 
-    [CargoType].[Tag] AS [Tag], 
-    [CargoType].[InsertDate] AS [InsertDate], 
-    [CargoType].[MemberId] AS [MemberId], 
-    [CargoType].[MemberName] AS [MemberName]
-    FROM [dbo].[CargoType] AS [CargoType]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Record" EntityType="Self.Record" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -146,21 +131,6 @@
           <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="MemberId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="CargoType">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="InsertDate" />
-            <PropertyRef Name="MemberId" />
-            <PropertyRef Name="MemberName" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="MemberId" Type="Int32" Nullable="false" />
-          <Property Name="MemberName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Record">
           <Key>
             <PropertyRef Name="Id" />
@@ -182,9 +152,20 @@
         <EntityContainer Name="CargoDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Member" EntityType="Self.Member" />
           <EntitySet Name="Cargo" EntityType="Self.Cargo" />
-          <EntitySet Name="CargoType" EntityType="Self.CargoType" />
           <EntitySet Name="Record" EntityType="Self.Record" />
+          <EntitySet Name="CargoType" EntityType="CargoDBModel.CargoType" />
         </EntityContainer>
+        <EntityType Name="CargoType">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InsertDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="MemberName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -217,18 +198,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CargoType">
-            <EntityTypeMapping TypeName="CargoDBModel.CargoType">
-              <MappingFragment StoreEntitySet="CargoType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Record">
             <EntityTypeMapping TypeName="CargoDBModel.Record">
               <MappingFragment StoreEntitySet="Record">
@@ -240,6 +209,18 @@
                 <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
                 <ScalarProperty Name="MemberId" ColumnName="MemberId" />
                 <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CargoType">
+            <EntityTypeMapping TypeName="CargoDBModel.CargoType">
+              <MappingFragment StoreEntitySet="CargoType">
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="Tag" ColumnName="Tag" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

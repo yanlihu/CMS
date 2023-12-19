@@ -30,6 +30,6 @@ namespace CMS
 				RaisePropertyChanged();
 			}
 		}
-
-	}
+		public MainWindow MainWindow { get; set; } = null;
+    }
 }

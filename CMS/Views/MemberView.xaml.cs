@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CMS
+namespace CMS.Views
 {
     /// <summary>
-    /// MainWindow.xaml 的交互逻辑
+    /// MemberView.xaml 的交互逻辑
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class MemberView : UserControl
     {
-        public MainWindow()
+        public MemberView()
         {
             InitializeComponent();
-            AppData.Instance.MainWindow = this;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Models
     
         public virtual DbSet<Member> Member { get; set; }
         public virtual DbSet<Cargo> Cargo { get; set; }
-        public virtual DbSet<CargoType> CargoType { get; set; }
         public virtual DbSet<Record> Record { get; set; }
+        public virtual DbSet<CargoType> CargoType { get; set; }
     }
 }

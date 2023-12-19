@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:CMS.Views"
-                 DataContext="{Binding Source={StaticResource Locator},Path=Login}"
+        DataContext="{Binding Source={StaticResource Locator},Path=Login}"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="LoginView" Height="360" Width="600">
