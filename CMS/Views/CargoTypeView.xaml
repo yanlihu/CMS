@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CMS.Views"
+             xmlns:local="clr-namespace:CMS.Views" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{Binding Source={StaticResource Locator},Path=CargoType}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -15,7 +16,14 @@
         <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Blue">
             <TextBlock Text="物资类型" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <Button Content="&#xf055;" Grid.Row="0" FontSize="20" FontFamily="../Fonts/#FontAwesome" HorizontalAlignment="Right"/>
+        <TextBlock Text="&#xf055;" Grid.Row="0" FontSize="20" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
+                   HorizontalAlignment="Right" VerticalAlignment="Center">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding OpenAddCargoTypeWindow}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBlock>
         <DataGrid Style="{DynamicResource MyDataGridStyle}" Grid.Row="1" ItemsSource="{Binding CargoTypes}" 
                   AutoGenerateColumns="False">
             <DataGrid.Columns>

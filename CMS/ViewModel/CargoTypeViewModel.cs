@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CMS.Windows;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,18 @@ namespace CMS.ViewModel
         public CargoTypeViewModel()
         {
             cargoTypes = new CargoTypeProvider().Select();
+        }
+
+        public RelayCommand OpenAddCargoTypeWindow
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    var window = new AddCargoTypeWindow();
+                    window.Show();
+                });
+            }
         }
     }
 }

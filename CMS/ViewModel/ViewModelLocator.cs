@@ -49,6 +49,7 @@ namespace CMS.ViewModel
             SimpleIoc.Default.Register<CargoTypeViewModel>();
             SimpleIoc.Default.Register<RecordViewModel>();
             SimpleIoc.Default.Register<MemberViewModel>();
+            SimpleIoc.Default.Register<AddCargoTypeViewModel>();
         }
 
         public MainViewModel Main
@@ -98,6 +99,13 @@ namespace CMS.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MemberViewModel>();
+            }
+        }
+        public AddCargoTypeViewModel AddCargoType
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AddCargoTypeViewModel>();
             }
         }
         public static void Cleanup()
