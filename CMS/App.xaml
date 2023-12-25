@@ -17,6 +17,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                 <!--Personal Style-->
                 <ResourceDictionary Source="Resources/RadioButtonMenuStyle.xaml"/>
+                <ResourceDictionary Source="Resources/ToggleButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resources/MyDataGridStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

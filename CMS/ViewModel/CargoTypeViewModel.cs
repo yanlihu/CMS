@@ -17,6 +17,9 @@ namespace CMS.ViewModel
 			get { return cargoTypes; }
 			set { cargoTypes = value; RaisePropertyChanged(); }
 		}
-
-	}
+        public CargoTypeViewModel()
+        {
+            cargoTypes = new CargoTypeProvider().Select();
+        }
+    }
 }
