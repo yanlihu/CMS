@@ -8,19 +8,27 @@ namespace Models
 {
     public class CargoProvider : IProvider<Cargo>
     {
+        private CargoDBEntities cargoDB = new CargoDBEntities();
         public int Delete(Cargo t)
         {
-            throw new NotImplementedException();
+            if(t==null) return 0;
+            var model = cargoDB.Cargo.ToList().FirstOrDefault((item => { return item.Name == t.Name; }));
+            if(model==null) return 0;
+            cargoDB.Cargo.Remove(model);
+            return cargoDB.SaveChanges();
         }
 
         public int Insert(Cargo t)
         {
-            throw new NotImplementedException();
+            if(t==null) return 0;
+            if(string.IsNullOrEmpty(t.Name)||string.IsNullOrEmpty(t.Unit)||t.InsertDate==null) return 0;
+            cargoDB.Cargo.Add(t);
+            return cargoDB.SaveChanges();
         }
 
         public List<Cargo> Select()
         {
-            throw new NotImplementedException();
+            return cargoDB.Cargo.ToList();
         }
 
         public int Update(Cargo t)
