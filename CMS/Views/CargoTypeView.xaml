@@ -16,8 +16,21 @@
         <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Blue">
             <TextBlock Text="物资类型" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <TextBlock Text="&#xf055;" Grid.Row="0" FontSize="20" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
+        <TextBlock Text="&#xf055;" Grid.Row="0" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
                    HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="FontSize" Value="26"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="FontSize" Value="20"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseUp">
                     <i:InvokeCommandAction Command="{Binding OpenAddCargoTypeWindow}"/>
@@ -46,6 +59,12 @@
                                         </Style.Triggers>
                                     </Style>
                                 </TextBlock.Style>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:CargoTypeView},Path=DataContext.DeleteCargoTypeCommand}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                             </TextBlock>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -1,24 +1,26 @@
 ﻿using CMS.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MahApps.Metro.Controls.Dialogs;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS.ViewModel
 {
     public class CargoTypeViewModel:ObservableObject
     {
-		private List<CargoType> cargoTypes;
+        private List<CargoType> cargoTypes;
 
-		public List<CargoType> CargoTypes
+        public List<CargoType> CargoTypes
         {
-			get { return cargoTypes; }
-			set { cargoTypes = value; RaisePropertyChanged(); }
-		}
+            get { return cargoTypes; }
+            set { cargoTypes = value; RaisePropertyChanged(); }
+        }
         public CargoTypeViewModel()
         {
             cargoTypes = new CargoTypeProvider().Select();
@@ -31,7 +33,26 @@ namespace CMS.ViewModel
                 return new RelayCommand(() =>
                 {
                     var window = new AddCargoTypeWindow();
-                    window.Show();
+                    window.ShowDialog();
+                    CargoTypes = new CargoTypeProvider().Select();
+                });
+            }
+        }
+        public RelayCommand<object> DeleteCargoTypeCommand
+        {
+            get
+            {
+                return new RelayCommand<object>((obj) =>
+                {
+                    if (obj is CargoType cargoType)
+                    {
+                        CargoTypeProvider cargoTypeProvider = new CargoTypeProvider();
+                        if (cargoTypeProvider.Delete(cargoType) > 0)
+                        {
+                            AppData.Instance.MainWindow.ShowMessageAsync("提示", "已删除");
+                            CargoTypes = cargoTypeProvider.Select();
+                        }
+                    }
                 });
             }
         }
