@@ -46,7 +46,6 @@ namespace CMS.ViewModel
                     //AppData.Instance.MainWindow.ShowMessageAsync("提示", $"插入{(i == 0 ? "失败" : "成功")}", MessageDialogStyle.Affirmative);
                     MessageBox.Show($"插入{(i == 0 ? "失败" : "成功")}");
                 });
-
             }
         }
     }

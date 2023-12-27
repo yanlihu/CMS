@@ -95,6 +95,7 @@
     <Compile Include="AppData.cs" />
     <Compile Include="ViewModel\AddCargoTypeViewModel.cs" />
     <Compile Include="ViewModel\AddCargoViewModel.cs" />
+    <Compile Include="ViewModel\AddMemberViewModel.cs" />
     <Compile Include="ViewModel\CargoTypeViewModel.cs" />
     <Compile Include="ViewModel\CargoViewModel.cs" />
     <Compile Include="ViewModel\IndexViewModel.cs" />
@@ -133,6 +134,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AddMemberWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -146,6 +151,9 @@
     </Compile>
     <Compile Include="Windows\AddCargoWindow.xaml.cs">
       <DependentUpon>AddCargoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddMemberWindow.xaml.cs">
+      <DependentUpon>AddMemberWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

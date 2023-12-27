@@ -46,6 +46,13 @@ namespace CMS.ViewModel
                 {
                     if (obj is CargoType cargoType)
                     {
+                        var type = new CargoProvider().Select().Any(item => item.TypeName == cargoType.Name);
+                        // var type = new CargoProvider().Select().FindAll(item=>item.TypeName==cargoType.Name);
+                        if (type==true)
+                        {
+                            MessageBox.Show("存在物资正在使用当前类型,无法删除");
+                            return;
+                        }
                         CargoTypeProvider cargoTypeProvider = new CargoTypeProvider();
                         if (cargoTypeProvider.Delete(cargoType) > 0)
                         {

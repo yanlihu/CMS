@@ -33,7 +33,14 @@ namespace Models
 
         public int Update(Cargo t)
         {
-            throw new NotImplementedException();
+            var existCargo = cargoDB.Cargo.FirstOrDefault(item=>item.Name==t.Name);
+            existCargo.TypeId = t.TypeId;
+            existCargo.TypeName = t.TypeName;
+            existCargo.Unit = t.Unit;
+            existCargo.Price = t.Price;
+            existCargo.Tag = t.Tag;
+            existCargo.MemberId = t.MemberId;
+            return cargoDB.SaveChanges();
         }
     }
 }

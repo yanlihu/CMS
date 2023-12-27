@@ -42,34 +42,72 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="物资名称" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="物资类型编号" Binding="{Binding TypeId}"/>
-                <DataGridTextColumn Header="物资类型" Binding="{Binding TypeName}"/>
-                <DataGridTextColumn Header="价格" Binding="{Binding Price}"/>
-                <DataGridTextColumn Header="单位" Binding="{Binding Unit}"/>
-                <DataGridTextColumn Header="备注" Binding="{Binding Tag}"/>
+                <!--<DataGridTextColumn Header="物资类型编号" Binding="{Binding TypeId}"/>-->
+                <!--<DataGridTextColumn Header="物资类型" Binding="{Binding TypeName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>-->
+                <DataGridComboBoxColumn Header="物资类型">
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:CargoView},Path=DataContext.CargoTypes}" />
+                            <Setter Property="DisplayMemberPath" Value="Name"/>
+                            <Setter Property="SelectedValuePath" Value="Name" />
+                            <Setter Property="SelectedValue" Value="{Binding TypeName}" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:CargoView},Path=DataContext.CargoTypes}" />
+                            <Setter Property="DisplayMemberPath" Value="Name"/>
+                            <Setter Property="SelectedValuePath" Value="Name" />
+                            <Setter Property="SelectedValue" Value="{Binding TypeName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
+                <DataGridTextColumn Header="价格" Binding="{Binding Price,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="单位" Binding="{Binding Unit,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="备注" Binding="{Binding Tag,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="插入时间" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
-                <DataGridTextColumn Header="操作人" Binding="{Binding MemberId}"/>
+                <DataGridTextColumn Header="操作人" Binding="{Binding MemberId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="删除" HorizontalAlignment="Center">
-                                <TextBlock.Style>
-                                    <Style TargetType="TextBlock">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Foreground" Value="Red"/>
-                                                <Setter Property="Cursor" Value="Hand"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </TextBlock.Style>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="删除">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
                                         <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:CargoView},Path=DataContext.DeleteCargoCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                            </TextBlock>
+                                </TextBlock>
+                                <TextBlock Text="修改" Margin="4 0 0 0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:CargoView},Path=DataContext.UpdateCargoCommand}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                </TextBlock>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

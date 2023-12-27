@@ -8,7 +8,7 @@ namespace Models
 {
     public class MemberProvider : IProvider<Member>
     {
-        private CargoDBEntities CargoDB=new CargoDBEntities();
+        private CargoDBEntities cargoDB=new CargoDBEntities();
         public int Delete(Member t)
         {
             throw new NotImplementedException();
@@ -16,12 +16,15 @@ namespace Models
 
         public int Insert(Member t)
         {
-            throw new NotImplementedException();
+            if (t == null) return 0;
+            if (string.IsNullOrEmpty(t.Name) || string.IsNullOrEmpty(t.Password) || t.InsertDate == null) return 0;
+            cargoDB.Member.Add(t);
+            return cargoDB.SaveChanges();
         }
 
         public List<Member> Select()
         {
-            return CargoDB.Member.ToList();
+            return cargoDB.Member.ToList();
         }
 
         public int Update(Member t)
