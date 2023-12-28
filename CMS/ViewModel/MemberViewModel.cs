@@ -1,12 +1,14 @@
 ﻿using CMS.Windows;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using MahApps.Metro.Controls.Dialogs;
 using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS.ViewModel
 {
@@ -33,6 +35,45 @@ namespace CMS.ViewModel
                     window.ShowDialog();
                     Members = new MemberProvider().Select();
                 });
+            }
+        }
+        public RelayCommand<object> DeleteMemberCommand
+        {
+            get
+            {
+                return new RelayCommand<object>((obj) =>
+                {
+                    if (obj is Member member)
+                    {
+                        if (MessageBox.Show("确认删除?", "询问", MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
+                        {
+                            MemberProvider memberProvider = new MemberProvider();
+                            if (memberProvider.Delete(member) > 0)
+                            {
+                                AppData.Instance.MainWindow.ShowMessageAsync("提示", "已删除");
+                                Members = memberProvider.Select();
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        public RelayCommand<object> UpdateMemberCommand
+        {
+            get
+            {
+                return new RelayCommand<object>((obj) =>
+                {
+                    if (obj is Member member)
+                    {
+                        //cargo.TypeId = cargoTypes.FirstOrDefault(item => item.Name == cargo.TypeName).Id;
+                        //CargoProvider cargoProvider = new CargoProvider();
+                        //var i = cargoProvider.Update(cargo);
+                        //MessageBox.Show($"修改{(i == 0 ? "失败" : "成功")}");
+                    }
+                });
+
             }
         }
     }

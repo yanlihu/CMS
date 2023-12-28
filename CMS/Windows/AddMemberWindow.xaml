@@ -4,11 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         DataContext="{Binding Source={StaticResource Locator},Path=AddMember}"
-        xmlns:local="clr-namespace:CMS.Windows"
+        xmlns:local="clr-namespace:CMS.Windows" 
+        xmlns:converter="clr-namespace:CMS.Converter"
         mc:Ignorable="d"
         Title="添加用户" Height="450" Width="800">
+    <Window.Resources>
+        <converter:RoleConverter x:Key="RoleConverter"/>
+    </Window.Resources>
     <Grid Margin="80">
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -22,6 +27,12 @@
             <TextBox Margin="5" Width="120" Text="{Binding Member.Password,Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Margin="5" Width="60" Text="角色"/>
+            <ComboBox Margin="5" Width="120"  
+                      ItemsSource="{Binding Roles}" DisplayMemberPath="Name" SelectedValuePath="Id" 
+                      Text="{Binding Member.Role,Converter={StaticResource RoleConverter}, Mode=TwoWay}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <Button Margin="5" Content="添加" Command="{Binding AddMemberCommand}"/>
         </StackPanel>
     </Grid>

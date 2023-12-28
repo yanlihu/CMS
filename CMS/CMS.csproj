@@ -93,6 +93,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppData.cs" />
+    <Compile Include="Converter\RoleConverter.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="ViewModel\AddCargoTypeViewModel.cs" />
     <Compile Include="ViewModel\AddCargoViewModel.cs" />
     <Compile Include="ViewModel\AddMemberViewModel.cs" />

@@ -4,10 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CMS.Views" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:converter="clr-namespace:CMS.Converter"
              DataContext="{Binding Source={StaticResource Locator},Path=Member}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:RoleConverter x:Key="RoleConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -38,12 +41,29 @@
             </i:Interaction.Triggers>
         </TextBlock>
         <DataGrid Style="{DynamicResource MyDataGridStyle}" Grid.Row="1" ItemsSource="{Binding Members}" 
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False" x:Name="grid">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="用户名" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="密码" Binding="{Binding Password,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="角色" Binding="{Binding Role,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="角色" Binding="{Binding Role,Converter={StaticResource RoleConverter}}"/>
+                <DataGridComboBoxColumn Header="角色">
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding ItemsSource,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                            <Setter Property="DisplayMemberPath" Value="Role" />
+                            <Setter Property="SelectedValuePath" Value="Role" />
+                            <Setter Property="SelectedValue" Value="{Binding Role}" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
+                    <DataGridComboBoxColumn.EditingElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding ItemsSource,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                            <Setter Property="DisplayMemberPath" Value="Role" />
+                            <Setter Property="SelectedValuePath" Value="Role" />
+                            <Setter Property="SelectedValue" Value="{Binding Role,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                        </Style>
+                    </DataGridComboBoxColumn.EditingElementStyle>
+                </DataGridComboBoxColumn>
                 <DataGridTextColumn Header="插入时间" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
                 <DataGridTemplateColumn Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
@@ -62,7 +82,7 @@
                                     </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:CargoView},Path=DataContext.DeleteCargoCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.DeleteMemberCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
@@ -80,7 +100,7 @@
                                     </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:CargoView},Path=DataContext.UpdateCargoCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.UpdateMemberCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
