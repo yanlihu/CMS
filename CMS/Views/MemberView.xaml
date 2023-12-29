@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CMS.Views" 
-             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:converter="clr-namespace:CMS.Converter"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             xmlns:converter="clr-namespace:CMS.Converter"
              DataContext="{Binding Source={StaticResource Locator},Path=Member}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -45,8 +46,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="用户名" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="角色" Binding="{Binding Role,Converter={StaticResource RoleConverter}}"/>
-                <DataGridComboBoxColumn Header="角色">
+                <!--<DataGridComboBoxColumn Header="角色">
                     <DataGridComboBoxColumn.ElementStyle>
                         <Style TargetType="ComboBox">
                             <Setter Property="ItemsSource" Value="{Binding ItemsSource,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
@@ -55,12 +55,22 @@
                             <Setter Property="SelectedValue" Value="{Binding Role}" />
                         </Style>
                     </DataGridComboBoxColumn.ElementStyle>
+                </DataGridComboBoxColumn>-->
+                <DataGridComboBoxColumn Header="角色">
+                    <DataGridComboBoxColumn.ElementStyle>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MemberView},Path=DataContext.AppData.Roles}"/>
+                            <Setter Property="DisplayMemberPath" Value="RoleName" />
+                            <Setter Property="SelectedValuePath" Value="RoleName" />
+                            <Setter Property="SelectedValue" Value="{Binding Role,Converter={StaticResource RoleConverter}}" />
+                        </Style>
+                    </DataGridComboBoxColumn.ElementStyle>
                     <DataGridComboBoxColumn.EditingElementStyle>
                         <Style TargetType="ComboBox">
-                            <Setter Property="ItemsSource" Value="{Binding ItemsSource,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
-                            <Setter Property="DisplayMemberPath" Value="Role" />
-                            <Setter Property="SelectedValuePath" Value="Role" />
-                            <Setter Property="SelectedValue" Value="{Binding Role,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            <Setter Property="ItemsSource" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=local:MemberView},Path=DataContext.AppData.Roles}" />
+                            <Setter Property="DisplayMemberPath" Value="RoleName" />
+                            <Setter Property="SelectedValuePath" Value="RoleName" />
+                            <Setter Property="SelectedValue" Value="{Binding Role,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,Converter={StaticResource RoleConverter}}" />
                         </Style>
                     </DataGridComboBoxColumn.EditingElementStyle>
                 </DataGridComboBoxColumn>

@@ -29,7 +29,7 @@
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Margin="5" Width="60" Text="角色"/>
             <ComboBox Margin="5" Width="120"  
-                      ItemsSource="{Binding Roles}" DisplayMemberPath="Name" SelectedValuePath="Id" 
+                      ItemsSource="{Binding AppData.Roles}" DisplayMemberPath="RoleName" SelectedValuePath="Id" 
                       Text="{Binding Member.Role,Converter={StaticResource RoleConverter}, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">

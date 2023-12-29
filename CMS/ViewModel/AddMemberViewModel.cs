@@ -16,10 +16,8 @@ namespace CMS.ViewModel
         public AddMemberViewModel()
         {
             member=new Member();
-            roles= new List<Role>();
-            roles.Add(new Role(){Name="admin",Id=0});
-            roles.Add(new Role(){ Name = "操作员", Id = 1 });
         }
+        public AppData AppData { get; set; } = AppData.Instance;
         private Member member;
 
 		public Member Member
@@ -27,14 +25,7 @@ namespace CMS.ViewModel
 			get { return member; }
 			set { member = value;RaisePropertyChanged(); }
 		}
-        private List<Role> roles;
-
-        public List<Role> Roles
-        {
-            get { return roles; }
-            set { roles = value; RaisePropertyChanged(); }
-        }
-
+    
         public RelayCommand AddMemberCommand
         {
             get

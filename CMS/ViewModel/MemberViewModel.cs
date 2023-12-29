@@ -14,6 +14,7 @@ namespace CMS.ViewModel
 {
     public class MemberViewModel:ViewModelBase
     {
+        public AppData AppData { get; set; } = AppData.Instance;
 		private List<Member> members;
 
 		public List<Member> Members
@@ -67,10 +68,9 @@ namespace CMS.ViewModel
                 {
                     if (obj is Member member)
                     {
-                        //cargo.TypeId = cargoTypes.FirstOrDefault(item => item.Name == cargo.TypeName).Id;
-                        //CargoProvider cargoProvider = new CargoProvider();
-                        //var i = cargoProvider.Update(cargo);
-                        //MessageBox.Show($"修改{(i == 0 ? "失败" : "成功")}");
+                        MemberProvider memberProvider=new MemberProvider();
+                        var i = memberProvider.Update(member);
+                        MessageBox.Show($"修改{(i == 0 ? "失败" : "成功")}");
                     }
                 });
 

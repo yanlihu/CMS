@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight;
+﻿using CMS.Entities;
+using GalaSoft.MvvmLight;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,13 @@ namespace CMS
 {
     public class AppData:ObservableObject
     {
-		public static AppData Instance=new Lazy<AppData>(() => new AppData()).Value;
+        public AppData()
+        {
+			roles = new List<Role>();
+            roles.Add(new Role() { RoleName = "管理员", Id = 0 });
+            roles.Add(new Role() { RoleName = "操作员", Id = 1 });
+        }
+        public static AppData Instance=new Lazy<AppData>(() => new AppData()).Value;
 		private string _systemTitle="物资管理系统";
 
 		public string SystemTitle
@@ -31,5 +38,13 @@ namespace CMS
 			}
 		}
 		public MainWindow MainWindow { get; set; } = null;
-    }
+		private List<Role> roles;
+
+		public List<Role> Roles
+		{
+			get { return roles; }
+			set { roles = value;RaisePropertyChanged(); }
+		}
+
+	}
 }

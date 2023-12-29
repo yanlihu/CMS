@@ -15,7 +15,14 @@ namespace Models
             var model = cargoDB.CargoType.ToList().FirstOrDefault(item => item.Id == t.Id);
             if (model==null) return 0;
             cargoDB.CargoType.Remove(model);
-            return cargoDB.SaveChanges();
+            try
+            {
+                return cargoDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public int Insert(CargoType t)
@@ -23,7 +30,14 @@ namespace Models
             if (t==null) return 0;
             if(string.IsNullOrEmpty(t.Name)||string.IsNullOrEmpty(t.MemberName)||t.InsertDate==null) return 0;
             cargoDB.CargoType.Add(t);
-            return cargoDB.SaveChanges();
+            try
+            {
+                return cargoDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public List<CargoType> Select()
