@@ -27,7 +27,7 @@ namespace CMS.Converter
             {
                 case "管理员": return 0;
                 case "操作员": return 1;
-                default:return 0;
+                default:return 1;
             }
         }
     }

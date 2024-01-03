@@ -18,6 +18,7 @@ namespace Models
         public int CargoId { get; set; }
         public string CargoName { get; set; }
         public double Number { get; set; }
+        public bool RecordType { get; set; }
         public string Tag { get; set; }
         public System.DateTime InsertDate { get; set; }
         public int MemberId { get; set; }

@@ -8,6 +8,7 @@ namespace Models
 {
     public class RecordProvider : IProvider<Record>
     {
+        private CargoDBEntities cargoDB = new CargoDBEntities();
         public int Delete(Record t)
         {
             throw new NotImplementedException();
@@ -15,12 +16,26 @@ namespace Models
 
         public int Insert(Record t)
         {
-            throw new NotImplementedException();
+            if (t == null) return 0;
+            if (string.IsNullOrEmpty(t.CargoName) || string.IsNullOrEmpty(t.MemberName) || t.InsertDate == null) return 0;
+            var record=this.Select().FirstOrDefault(item => item.CargoName==t.CargoName);
+            if (record != null)
+            {
+                t.Number += record.Number;
+            }
+            try
+            {
+                return cargoDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public List<Record> Select()
         {
-            throw new NotImplementedException();
+            return cargoDB.Record.ToList();
         }
 
         public int Update(Record t)

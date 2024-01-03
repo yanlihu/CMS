@@ -3,11 +3,117 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CMS.Views"
+             xmlns:local="clr-namespace:CMS.Views" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{Binding Source={StaticResource Locator},Path=Record}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock Text="Record" FontSize="50"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Blue">
+            <TextBlock Text="物资出入库管理" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Text="&#xf055;" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
+                   HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="FontSize" Value="26"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="FontSize" Value="20"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding OpenInputCargoWindowCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            </TextBlock>
+            <TextBlock Text="&#xf056;" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
+                   HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="FontSize" Value="26"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="FontSize" Value="20"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseUp">
+                    <i:InvokeCommandAction Command="{Binding OpenAddMemberWindowCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            </TextBlock>
+        </StackPanel>
+        <DataGrid Style="{DynamicResource MyDataGridStyle}" Grid.Row="1" ItemsSource="{Binding Records}" 
+                  AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="物资编号" Binding="{Binding CargoId}"/>
+                <DataGridTextColumn Header="物资名称" Binding="{Binding CargoName}"/>
+                <DataGridTextColumn Header="数量" Binding="{Binding Number}"/>
+                <DataGridTextColumn Header="备注" Binding="{Binding Tag}"/>
+                <DataGridTextColumn Header="创建日期" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
+                <DataGridTemplateColumn Header="操作">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="删除">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.DeleteMemberCommand}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                </TextBlock>
+                                <TextBlock Text="修改" Margin="4 0 0 0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.UpdateMemberCommand}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
