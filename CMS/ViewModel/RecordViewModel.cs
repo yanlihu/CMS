@@ -32,6 +32,19 @@ namespace CMS.ViewModel
                 { 
                     var window=new InputCargoWindow();
                     window.ShowDialog();
+                    Records = new RecordProvider().Select();
+                });
+            }
+        }
+        public RelayCommand OpenOutputCargoWindowCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    var window = new OutputCargoWindow();
+                    window.ShowDialog();
+                    Records = new RecordProvider().Select();
                 });
             }
         }

@@ -41,7 +41,8 @@ namespace CMS.ViewModel
                     if (record == null || string.IsNullOrEmpty(record.CargoName)) return;
                     var cargo = cargos.FirstOrDefault(item => item.Name == Record.CargoName);
                     if (cargo == null) return;
-                    record.CargoId = cargo.TypeId;
+                    record.CargoId = cargo.Id;
+                    record.RecordType = false;
                     record.InsertDate = DateTime.Now;
                     record.MemberId = AppData.Instance.CurrentMember.Id;
                     record.MemberName = AppData.Instance.CurrentMember.Name;

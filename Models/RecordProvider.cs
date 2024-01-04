@@ -18,11 +18,7 @@ namespace Models
         {
             if (t == null) return 0;
             if (string.IsNullOrEmpty(t.CargoName) || string.IsNullOrEmpty(t.MemberName) || t.InsertDate == null) return 0;
-            var record=this.Select().FirstOrDefault(item => item.CargoName==t.CargoName);
-            if (record != null)
-            {
-                t.Number += record.Number;
-            }
+            cargoDB.Record.Add(t);
             try
             {
                 return cargoDB.SaveChanges();

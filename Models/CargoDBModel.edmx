@@ -42,7 +42,7 @@
         </EntityType>
         <EntityType Name="Record">
           <Key>
-            <PropertyRef Name="CargoId" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CargoId" Type="int" Nullable="false" />
@@ -107,7 +107,7 @@
         </EntityType>
         <EntityType Name="Record">
           <Key>
-            <PropertyRef Name="CargoId" />
+            <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CargoId" Type="Int32" Nullable="false" />

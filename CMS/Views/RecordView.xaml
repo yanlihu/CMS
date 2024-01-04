@@ -55,7 +55,7 @@
                 </TextBlock.Style>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseUp">
-                    <i:InvokeCommandAction Command="{Binding OpenAddMemberWindowCommand}"/>
+                    <i:InvokeCommandAction Command="{Binding OpenOutputCargoWindowCommand}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             </TextBlock>
@@ -67,13 +67,14 @@
                 <DataGridTextColumn Header="物资编号" Binding="{Binding CargoId}"/>
                 <DataGridTextColumn Header="物资名称" Binding="{Binding CargoName}"/>
                 <DataGridTextColumn Header="数量" Binding="{Binding Number}"/>
+                <DataGridTextColumn Header="出入库" Binding="{Binding RecordType}"/>
                 <DataGridTextColumn Header="备注" Binding="{Binding Tag}"/>
                 <DataGridTextColumn Header="创建日期" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
                 <DataGridTemplateColumn Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="删除">
+                                <TextBlock Text="&#xf14b;" FontFamily="{DynamicResource FontAwesome}" VerticalAlignment="Center">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
@@ -86,12 +87,12 @@
                                     </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.DeleteMemberCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:RecordView},Path=DataContext.OpenInputCargoWindowCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                                 </TextBlock>
-                                <TextBlock Text="修改" Margin="4 0 0 0">
+                                <TextBlock Text="&#xf055;" FontFamily="{DynamicResource FontAwesome}" VerticalAlignment="Center" Margin="8 0 0 0">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Style.Triggers>
@@ -104,7 +105,25 @@
                                     </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:MemberView},Path=DataContext.UpdateMemberCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:RecordView},Path=DataContext.OpenInputCargoWindowCommand}"
+                                                               CommandParameter="{Binding}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                                </TextBlock>
+                                <TextBlock Text="&#xf056;" FontFamily="{DynamicResource FontAwesome}" VerticalAlignment="Center" Margin="8 0 0 0">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="Red"/>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:RecordView},Path=DataContext.OpenOutputCargoWindowCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
