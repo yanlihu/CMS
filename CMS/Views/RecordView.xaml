@@ -61,7 +61,7 @@
             </TextBlock>
         </StackPanel>
         <DataGrid Style="{DynamicResource MyDataGridStyle}" Grid.Row="1" ItemsSource="{Binding Records}" 
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False" SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="物资编号" Binding="{Binding CargoId}"/>

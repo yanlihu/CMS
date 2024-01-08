@@ -1,4 +1,5 @@
 ﻿using CMS.Windows;
+using CommonServiceLocator;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Models;
@@ -24,25 +25,70 @@ namespace CMS.ViewModel
             set { records = value;RaisePropertyChanged(); }
         }
 
-        public RelayCommand OpenInputCargoWindowCommand
+        private Record selectedRecord;
+
+        public Record SelectedRecord
+        {
+            get { return selectedRecord; }
+            set { selectedRecord = value;RaisePropertyChanged(); }
+        }
+
+
+        //public RelayCommand OpenInputCargoWindowCommand
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(() => 
+        //        { 
+        //            var window=new InputCargoWindow();
+        //            window.ShowDialog();
+        //            Records = new RecordProvider().Select();
+        //        });
+        //    }
+        //}
+        public RelayCommand<Record> OpenInputCargoWindowCommand
         {
             get
             {
-                return new RelayCommand(() => 
-                { 
-                    var window=new InputCargoWindow();
+                return new RelayCommand<Record>((r) =>
+                {
+                    if (r == null || r is Record == false)
+                    {
+                        return;
+                    }
+                    var window = new InputCargoWindow();
+                    var inputCargoViewModel= ServiceLocator.Current.GetInstance<InputCargoViewModel>();
+                    inputCargoViewModel.Record = r;
                     window.ShowDialog();
                     Records = new RecordProvider().Select();
                 });
             }
         }
-        public RelayCommand OpenOutputCargoWindowCommand
+        //public RelayCommand OpenOutputCargoWindowCommand
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(() =>
+        //        {
+        //            var window = new OutputCargoWindow();
+        //            window.ShowDialog();
+        //            Records = new RecordProvider().Select();
+        //        });
+        //    }
+        //}
+        public RelayCommand<Record> OpenOutputCargoWindowCommand
         {
             get
             {
-                return new RelayCommand(() =>
+                return new RelayCommand<Record>((r) =>
                 {
+                    if (r == null || r is Record == false)
+                    {
+                        return;
+                    }
                     var window = new OutputCargoWindow();
+                    var outputCargoViewModel = ServiceLocator.Current.GetInstance<OutputCargoViewModel>();
+                    outputCargoViewModel.Record = r;
                     window.ShowDialog();
                     Records = new RecordProvider().Select();
                 });

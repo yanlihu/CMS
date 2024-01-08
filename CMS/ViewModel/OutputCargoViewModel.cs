@@ -12,6 +12,14 @@ namespace CMS.ViewModel
 {
     public class OutputCargoViewModel:ViewModelBase
     {
+        private double sum;
+
+        public double Sum
+        {
+            get { return sum; }
+            private set { sum = value; }
+        }
+
         public OutputCargoViewModel()
         {
             record = new Record();
