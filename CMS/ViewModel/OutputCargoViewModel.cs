@@ -19,7 +19,19 @@ namespace CMS.ViewModel
             get { return sum; }
             private set { sum = value; }
         }
-
+        /// <summary>
+        /// 查询库存数量
+        /// </summary>
+        /// <param name="cargoName"></param>
+        /// <returns></returns>
+        public double GetSum(string cargoName)
+        {
+            var records = new RecordProvider().Select().FindAll(x => x.CargoName == cargoName);
+            if(records==null) return 0;
+            var inputcount = records.FindAll(x => x.RecordType == true).Sum(x => x.Number);
+            var ouputcount = records.FindAll(x => x.RecordType == false).Sum(x => x.Number);
+            return inputcount - ouputcount;
+        }
         public OutputCargoViewModel()
         {
             record = new Record();
@@ -57,6 +69,20 @@ namespace CMS.ViewModel
                     var recordProvider = new RecordProvider();
                     var i = recordProvider.Insert(record);
                     MessageBox.Show($"插入{(i == 0 ? "失败" : "成功")}");
+                });
+            }
+        }
+        public RelayCommand<object> SelectionChangedCommand
+        {
+            get
+            {
+                return new RelayCommand<object>((obj) => 
+                {
+                    if (obj == null) return;
+                    if (obj is Cargo cargo)
+                    {
+                        Sum = GetSum(cargo.Name);
+                    }
                 });
             }
         }

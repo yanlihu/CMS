@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CMS.Windows"
+        xmlns:local="clr-namespace:CMS.Windows" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         DataContext="{Binding Source={StaticResource Locator},Path=OutputCargo}"
         Title="物资出库" Height="450" Width="800">
@@ -16,11 +17,18 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Margin="5" Width="60" Text="物资名" VerticalAlignment="Center"/>
-            <ComboBox Margin="5" Width="120" ItemsSource="{Binding Cargos}" DisplayMemberPath="Name" Text="{Binding Record.CargoName,UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Margin="5" Width="120" ItemsSource="{Binding Cargos}" DisplayMemberPath="Name" Text="{Binding Record.CargoName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" CommandParameter="{Binding SelectedItem,RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Margin="5" Width="60" Text="数量" VerticalAlignment="Center"/>
-            <TextBox Margin="5" Width="120" Text="{Binding Record.Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Margin="5" Width="120" Text="{Binding Record.Number,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
         </StackPanel>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
             <TextBlock Margin="5" Width="60" Text="备注" VerticalAlignment="Center"/>
