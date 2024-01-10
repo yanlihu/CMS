@@ -48,7 +48,7 @@ namespace CMS.ViewModel
                     InsertDate = c.InsertDate,
                     MemberId = c.MemberId,
                 };
-                double sum = 0f;
+                double sum = 0d;
                 var records = new RecordProvider().Select().FindAll(x => x.CargoName == c.Name);
                 if (records != null)
                 {

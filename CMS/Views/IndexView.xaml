@@ -3,11 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CMS.Views"
+             xmlns:local="clr-namespace:CMS.Views" 
+             xmlns:chart="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              DataContext="{Binding Source={StaticResource Locator},Path=Index}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
-        <TextBlock FontSize="50" Text="首页"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Blue">
+            <TextBlock Text="首页" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <chart:CartesianChart Grid.Row="0" Grid.Column="0" Margin="5">
+                <chart:CartesianChart.Series>
+                    <chart:ColumnSeries Values="{Binding CargoChartValues}">
+                    </chart:ColumnSeries>
+                </chart:CartesianChart.Series>
+                <chart:CartesianChart.AxisX>
+                    <chart:Axis Labels="{Binding CargoChartLabels}">
+                        <chart:Axis.Separator>
+                            <chart:Separator Step="1"/>
+                        </chart:Axis.Separator>
+                    </chart:Axis>
+                </chart:CartesianChart.AxisX>
+            </chart:CartesianChart>
+        </Grid>
     </Grid>
 </UserControl>
