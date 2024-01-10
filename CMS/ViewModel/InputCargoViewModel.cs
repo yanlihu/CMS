@@ -49,7 +49,7 @@ namespace CMS.ViewModel
 					record.MemberName=AppData.Instance.CurrentMember.Name;
 					var recordProvider=new RecordProvider();
 					var i=recordProvider.Insert(record);
-                    MessageBox.Show($"插入{(i == 0 ? "失败" : "成功")}");
+                    MessageBox.Show($"入库{(i == 0 ? "失败" : "成功")}");
 				});
 			}
 		}

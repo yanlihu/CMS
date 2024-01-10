@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CMS.Views" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:converter="clr-namespace:CMS.Converter"
              DataContext="{Binding Source={StaticResource Locator},Path=Record}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converter:RecordTypeConverter x:Key="RecordTypeConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -16,7 +20,7 @@
         <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Blue">
             <TextBlock Text="物资出入库管理" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Visibility="Collapsed" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
             <TextBlock Text="&#xf055;" FontFamily="{DynamicResource FontAwesome}" Margin="0 0 5 0"
                    HorizontalAlignment="Right" VerticalAlignment="Center">
                 <TextBlock.Style>
@@ -63,13 +67,13 @@
         <DataGrid Style="{DynamicResource MyDataGridStyle}" Grid.Row="1" ItemsSource="{Binding Records}" 
                   AutoGenerateColumns="False" SelectedItem="{Binding SelectedRecord, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="编号" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="物资编号" Binding="{Binding CargoId}"/>
-                <DataGridTextColumn Header="物资名称" Binding="{Binding CargoName}"/>
-                <DataGridTextColumn Header="数量" Binding="{Binding Number}"/>
-                <DataGridTextColumn Header="出入库" Binding="{Binding RecordType}"/>
-                <DataGridTextColumn Header="备注" Binding="{Binding Tag}"/>
-                <DataGridTextColumn Header="创建日期" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}"/>
+                <DataGridTextColumn Header="出入库" Binding="{Binding RecordType,Converter={StaticResource RecordTypeConverter}}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="编号" Binding="{Binding Id}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="物资编号" Binding="{Binding CargoId}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="物资名称" Binding="{Binding CargoName}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="数量" Binding="{Binding Number}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="备注" Binding="{Binding Tag,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="创建日期" Binding="{Binding InsertDate,StringFormat='yyyy-MM-dd HH:mm:ss'}" IsReadOnly="True"/>
                 <DataGridTemplateColumn Header="操作">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -87,7 +91,7 @@
                                     </TextBlock.Style>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:RecordView},Path=DataContext.OpenInputCargoWindowCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource AncestorType=local:RecordView},Path=DataContext.UpdateRecordCommand}"
                                                                CommandParameter="{Binding}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>

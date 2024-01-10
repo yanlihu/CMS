@@ -17,12 +17,12 @@ namespace CMS.ViewModel
         public double Sum
         {
             get { return sum; }
-            private set { sum = value; }
+            private set { sum = value; RaisePropertyChanged(); }
         }
         /// <summary>
         /// 查询库存数量
         /// </summary>
-        /// <param name="cargoName"></param>
+        /// <param name="cargoName">物资名称</param>
         /// <returns></returns>
         public double GetSum(string cargoName)
         {
@@ -61,6 +61,12 @@ namespace CMS.ViewModel
                     if (record == null || string.IsNullOrEmpty(record.CargoName)) return;
                     var cargo = cargos.FirstOrDefault(item => item.Name == Record.CargoName);
                     if (cargo == null) return;
+                    Sum = GetSum(cargo.Name);
+                    if (Record.Number > Sum)
+                    {
+                        MessageBox.Show($"当前库存为{Sum},无法出库");
+                        return;
+                    }
                     record.CargoId = cargo.Id;
                     record.RecordType = false;
                     record.InsertDate = DateTime.Now;
@@ -68,7 +74,7 @@ namespace CMS.ViewModel
                     record.MemberName = AppData.Instance.CurrentMember.Name;
                     var recordProvider = new RecordProvider();
                     var i = recordProvider.Insert(record);
-                    MessageBox.Show($"插入{(i == 0 ? "失败" : "成功")}");
+                    MessageBox.Show($"出库{(i == 0 ? "失败" : "成功")}");
                 });
             }
         }
@@ -83,6 +89,16 @@ namespace CMS.ViewModel
                     {
                         Sum = GetSum(cargo.Name);
                     }
+                });
+            }
+        }
+        public RelayCommand LoadedCommand
+        {
+            get
+            {
+                return new RelayCommand(() => 
+                {
+                    Sum = GetSum(Record.CargoName);
                 });
             }
         }

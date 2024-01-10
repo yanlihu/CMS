@@ -36,7 +36,17 @@ namespace Models
 
         public int Update(Record t)
         {
-            throw new NotImplementedException();
+            var r = cargoDB.Record.FirstOrDefault(item => item.Id == t.Id);
+            if(r == null) return 0;
+            r.Tag = t.Tag;
+            try
+            {
+                return cargoDB.SaveChanges();
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

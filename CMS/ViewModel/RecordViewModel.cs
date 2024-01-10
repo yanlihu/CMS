@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CMS.ViewModel
 {
@@ -46,19 +47,19 @@ namespace CMS.ViewModel
         //        });
         //    }
         //}
-        public RelayCommand<Record> OpenInputCargoWindowCommand
+        public RelayCommand<object> OpenInputCargoWindowCommand
         {
             get
             {
-                return new RelayCommand<Record>((r) =>
+                return new RelayCommand<object>((r) =>
                 {
-                    if (r == null || r is Record == false)
+                    if (r == null || r is Record record == false)
                     {
                         return;
                     }
                     var window = new InputCargoWindow();
                     var inputCargoViewModel= ServiceLocator.Current.GetInstance<InputCargoViewModel>();
-                    inputCargoViewModel.Record = r;
+                    inputCargoViewModel.Record = record;
                     window.ShowDialog();
                     Records = new RecordProvider().Select();
                 });
@@ -76,21 +77,37 @@ namespace CMS.ViewModel
         //        });
         //    }
         //}
-        public RelayCommand<Record> OpenOutputCargoWindowCommand
+        public RelayCommand<object> OpenOutputCargoWindowCommand
         {
             get
             {
-                return new RelayCommand<Record>((r) =>
+                return new RelayCommand<object>((r) =>
                 {
-                    if (r == null || r is Record == false)
+                    if (r == null || r is Record record == false)
                     {
                         return;
                     }
                     var window = new OutputCargoWindow();
                     var outputCargoViewModel = ServiceLocator.Current.GetInstance<OutputCargoViewModel>();
-                    outputCargoViewModel.Record = r;
+                    outputCargoViewModel.Record = record;
                     window.ShowDialog();
                     Records = new RecordProvider().Select();
+                });
+            }
+        }
+        public RelayCommand<object> UpdateRecordCommand
+        {
+            get
+            {
+                return new RelayCommand<object>((obj) =>
+                {
+                    if (obj == null) return;
+                    if (obj is Record record)
+                    {
+                        RecordProvider recordProvider = new RecordProvider();
+                        var i = recordProvider.Update(record);
+                        MessageBox.Show($"修改{(i == 0 ? "失败" : "成功")}");
+                    }
                 });
             }
         }
