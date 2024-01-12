@@ -25,6 +25,7 @@ namespace CMS.ViewModel
                     var user = memberProvider.Select().FirstOrDefault(item => item.Name == CurrentMember.Name && item.Password == CurrentMember.Password);
                     if (user != null)
                     {
+                        AppData.Instance.CurrentMember = user;
                         MainWindow mainWindow = new MainWindow();
                         mainWindow.Show();
                         window.Close();

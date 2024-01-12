@@ -39,10 +39,31 @@
                 <chart:CartesianChart.AxisX>
                     <chart:Axis Labels="{Binding CargoChartLabels}">
                         <chart:Axis.Separator>
+                            <chart:Separator Step="1" IsEnabled="False"/>
+                        </chart:Axis.Separator>
+                    </chart:Axis>
+                </chart:CartesianChart.AxisX>
+            </chart:CartesianChart>
+            <chart:PieChart Grid.Row="0" LegendLocation="Right" Grid.Column="1" Margin="5" Series="{Binding CargoPieSeries}">
+                <chart:PieChart.ChartLegend>
+                    <chart:DefaultLegend Foreground="Black"/>
+                </chart:PieChart.ChartLegend>
+            </chart:PieChart>
+            <chart:CartesianChart Grid.Row="1" Grid.Column="0" Margin="5">
+                <chart:CartesianChart.Series>
+                    <chart:ColumnSeries Values="{Binding MemberChartValues}">
+                    </chart:ColumnSeries>
+                </chart:CartesianChart.Series>
+                <chart:CartesianChart.AxisX>
+                    <chart:Axis Labels="{Binding MemberChartLabels}">
+                        <chart:Axis.Separator>
                             <chart:Separator Step="1"/>
                         </chart:Axis.Separator>
                     </chart:Axis>
                 </chart:CartesianChart.AxisX>
+            </chart:CartesianChart>
+            <chart:CartesianChart Grid.Row="1" Grid.Column="1" Margin="5" Series="{Binding CargoLineSeries}">
+                
             </chart:CartesianChart>
         </Grid>
     </Grid>

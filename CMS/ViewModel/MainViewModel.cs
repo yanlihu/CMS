@@ -1,6 +1,8 @@
 using CMS.Views;
+using ControlzEx.Standard;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Models;
 using System.Windows.Controls;
 
 namespace CMS.ViewModel
@@ -64,6 +66,16 @@ namespace CMS.ViewModel
                                 break;
                         }
                     }
+                });
+            }
+        }
+        public RelayCommand LoadedCommand
+        {
+            get
+            {
+                return new RelayCommand(() =>
+                {
+                    AppData.Instance.MainWindow.container.Content = new IndexView();
                 });
             }
         }

@@ -12,6 +12,11 @@
     WindowState="Maximized"
     Background="#F6F6F6"
     Title="" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <mah:MetroWindow.Resources>
         <Storyboard x:Key="ToggleButtonChecked">
             <DoubleAnimation Duration="00:00:0.5" From="200" To="40" Storyboard.TargetName="leftBorder" Storyboard.TargetProperty="Width">
